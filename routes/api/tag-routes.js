@@ -6,7 +6,7 @@ const { Tag, Product, ProductTag } = require("../../models");
 // Finds all tags and includes its associated Product data
 router.get("/", async (req, res) => {
   const allTags = await Tag.findAll({
-    include: [{ model: Product }, { model: ProductTag }],
+    include: [{ model: Product }],
   });
   res.json(allTags);
 });
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 // Finds a single tag's data by its `id` and includes its associated Product data
 router.get("/:id", async (req, res) => {
   const tagId = await Tag.findByPk(req.params.id, {
-    include: [{ model: Product }, { model: ProductTag }],
+    include: [{ model: Product }],
   });
   res.json(tagId);
 });
@@ -35,7 +35,7 @@ router.put("/:id", async (req, res) => {
 
 // Deletes a tag based on its `id` value
 router.delete("/:id", async (req, res) => {
-  const deleteTag = await Category.findByPk(req.params.id);
+  const deleteTag = await Tag.findByPk(req.params.id);
   await deleteTag.destroy();
   res.json(`${req.method} request received`);
 });
